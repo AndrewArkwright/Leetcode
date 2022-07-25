@@ -56,3 +56,26 @@
 
    return number
 }
+
+/**
+ * Convert integer to Roman Numeral
+ * @param {number} num
+ * @return {string}
+ * 3 => "III"
+ * Make a table of each possible Roman Numeral attached to its' number equivelent. Loop each one from largest to smallest until it does not divide. Add loop each one from largest to smallest until the number is to small and then it will go to the next largest number. Each time you loop, add to a string that we will return.
+ */
+ var intToRoman = function(num) {
+  
+    let table = {M:1000, CM:900, D:500, CD:400, C:100, XC:90, L:50, XL:40, X:10, IX:9, V:5, IV:4, I:1}
+    let roman = ""
+    let i = 0
+    
+     for ( i in table ) {
+       while ( num >= table[i] ) {
+         roman += i;
+         num -= table[i]
+       }
+     }
+     
+     return roman
+}
