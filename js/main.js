@@ -79,3 +79,29 @@
      
      return roman
 }
+
+/**
+ * @param {string[]} strs
+ * @return {string}
+ * ["flower","flow","flight"]
+ * Note: we are returning the longest common string from the start of the string. The first thing I wanted to do was sort it so we loop through the smallest length string. I would then make a loop to add each letter to a string to compare
+*/
+
+var longestCommonPrefix = function(strs) {
+
+    strs = strs.sort((a, b) => a.length - b.length, 0)
+
+    string = strs[0].split("")
+
+    let match = ""
+    let temp = ""
+
+    const compare = str => str.startsWith(temp)
+
+        for (let i = 0; i < string.length; i++) {
+            temp += string[i]
+            if (strs.every(compare) && temp.length > match.length) {match = temp}
+            else {break}
+        }
+    return match
+}
