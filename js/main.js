@@ -105,3 +105,18 @@ var longestCommonPrefix = function(strs) {
         }
     return match
 }
+
+/**
+ * @param {string} s
+ * @return {number}
+ * "   fly me   to   the moon  " => 4
+ * I'll split the function and then access the last value in the array. Ended up having to filter it as well because some of the given examples had spaces after the last word in the string
+ */
+
+var lengthOfLastWord = function(s) {
+    s = s.split(" ").filter(value => value != "")
+    return s[s.length-1].length
+};
+
+var lengthOfLastWord = s => s.split(" ").filter(value => value != "")[s.split(" ").filter(value => value != "").length-1].length
+
