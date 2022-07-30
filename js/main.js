@@ -120,3 +120,36 @@ var lengthOfLastWord = function(s) {
 
 var lengthOfLastWord = s => s.split(" ").filter(value => value != "")[s.split(" ").filter(value => value != "").length-1].length
 
+/*
+Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same.
+Do not allocate extra space for another array. You must do this by modifying the input array in-place with O(1) extra memory.
+The judge will test your solution with the following code:
+
+int[] nums = [...]; // Input array
+int[] expectedNums = [...]; // The expected answer with correct length
+
+int k = removeDuplicates(nums); // Calls your implementation
+
+assert k == expectedNums.length;
+for (int i = 0; i < k; i++) {
+    assert nums[i] == expectedNums[i];
+}
+If all assertions pass, then your solution will be accepted.
+*/
+
+/*
+ * @param {number[]} nums
+ * @return {number}
+ * [1, 1, 2] => 2
+ * I will loop each value in the array and if it is equal to the then I change the value, if not I increment a number. I will then sort the array and return the incremented number
+ */
+
+var removeDuplicates = function(nums) {
+    let k = 0
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === nums[i+1]) {nums[i] = 101}
+        else {k++}
+    }
+    nums = nums.sort((a, b) => a - b)
+    return k
+};
