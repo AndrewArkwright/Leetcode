@@ -153,3 +153,39 @@ var removeDuplicates = function(nums) {
     nums = nums.sort((a, b) => a - b)
     return k
 };
+
+/*
+Implement strStr().
+
+Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+
+Clarification:
+
+What should we return when needle is an empty string? This is a great question to ask during an interview.
+
+For the purpose of this problem, we will return 0 when needle is an empty string. This is consistent to C's strstr() and Java's indexOf().
+*/
+
+/**
+ * @param {string} haystack
+ * @param {string} needle
+ * @return {number}
+ * "mississippi", "issip" => 4
+ * I want to loop haystack.length times to check if the begging part of the string matches and if not, we remove one character from the string, else we can return the amount of times we looped
+ */
+
+ var strStr = function(haystack, needle) {
+    if (needle.length === 0) {return 0}
+
+    let i = 0
+    while (haystack.length >= needle.length) {
+        if (haystack.startsWith(needle)) {
+            return i
+        }
+        else {
+            haystack = haystack.slice(1)
+            i++
+        }
+    }
+    return -1
+}
