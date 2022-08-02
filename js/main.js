@@ -189,3 +189,32 @@ For the purpose of this problem, we will return 0 when needle is an empty string
     }
     return -1
 }
+
+/*
+Given a string s, find the length of the longest substring without repeating characters.
+*/
+
+/**
+ * @param {string} s
+ * @return {number}
+ * "pwwkew" => "pwwkew"
+ //I think we can loop through the string VIA array and add to a temp array until a duplicate exists and then reset the array while keeping track of maxSubstring amount
+ */
+
+ var lengthOfLongestSubstring = function(s) {
+    
+    let maxSub = 0, tempArray = []
+    
+    s = s.split("")
+
+    for (let j = 0; j < s.length; j++) {
+        let i = j
+        while (tempArray.indexOf(s[i]) === -1 && i < s.length) {
+            tempArray.push(s[i])
+            i++
+        }
+        if (tempArray.length > maxSub) {maxSub = tempArray.length}
+        tempArray = []
+    }
+    return maxSub
+}
