@@ -218,3 +218,23 @@ Given a string s, find the length of the longest substring without repeating cha
     }
     return maxSub
 }
+
+/*
+ * @param {number[]} height
+ * @return {number}
+ * [1,8,6,2,5,4,8,3,7] => 49
+ * Since we are given two different lengths to keep track of to check if they equal the largest area, the first thing I thought of doing was a for loop nested in another for loop to check all possible areas while keeping track of a max value
+ * Was not efficient enough, plan 2: For loop and find the longest width, which will be to length-1, and then check any higher heights that are before longest, code is still in development
+*/
+
+var maxAreaAlpha = function(height) {
+    let max = 0
+    for (let i = 0; i < height.length; i++) {
+        for (let j = i + 1; j < height.length; j++) {
+            let width = (j - i)
+            let length = Math.min(height[i], height[j])
+            if (width * length > max) {max = width * length}
+        }
+    }
+    return max
+}
