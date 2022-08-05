@@ -220,6 +220,14 @@ Given a string s, find the length of the longest substring without repeating cha
 }
 
 /*
+You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
+
+Return the maximum amount of water a container can store.
+*/
+
+/*
  * @param {number[]} height
  * @return {number}
  * [1,8,6,2,5,4,8,3,7] => 49
@@ -237,4 +245,40 @@ var maxAreaAlpha = function(height) {
         }
     }
     return max
+}
+
+/**
+ * @param {number[]} height
+ * @return {number}
+ * [1,8,6,2,5,4,8,3,7] => 49
+ * I did many revisions of this. I ended up making an array that includes all the highest numbers greater than the height of the last object. I then made a loop for each number in the given array that would first check to see if the longest area is greater than the current maxArea. Then it would check to see if the current height is larger than any previous heights and if it is, then we would check the array of maxHeights and see if the area using those is higher than the current maxArea. That array would also run until the index of those values was smaller than the current value.
+ */
+
+ var maxArea = function(height) {
+    temp = 0
+    let maxArray = []
+    let maxIndex = []
+    for(let j = height.length - 2; j > 0; j--) {
+        if (height[j] > height[height.length - 1] && !maxArray.includes(height[j])) {
+            maxArray.push(height[j])
+            maxIndex.push(j)
+        }
+    }
+
+    let currentMaxHeight = height[0]
+
+    for (let i = 0; i < height.length - 1; i++) {
+        if ((height.length - (i + 1)) * Math.min(height[i], height[height.length - 1]) > temp || temp === 0) {
+            temp = ((height.length - (i + 1)) * Math.min(height[i], height[height.length - 1]))
+        }
+
+        if (height[i] > currentMaxHeight || i === 0) {
+            if (height[i] > currentMaxHeight) {currentMaxHeight = height[i]}
+            for(let j = 0; i < maxIndex[j]; j++) { //loop through all max values
+                //console.log(i, maxIndex[j])
+                if((maxIndex[j] - i) * Math.min(maxArray[j], height[i]) > temp) {temp = (maxIndex[j] - i) * Math.min(maxArray[j], height[i])}
+            }
+        }
+    }
+    return temp
 }
