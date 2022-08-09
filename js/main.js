@@ -329,3 +329,43 @@ If all assertions pass, then your solution will be accepted.
     }
     return nums.length
 };
+
+/*
+Given a sorted array of distinct integers and a target value, return the index if the target is found. If not, return the index where it would be if it were inserted in order.
+
+You must write an algorithm with O(log n) runtime complexity.
+*/
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number}
+ * [2,4,5,6,7,8], 7 => 4
+ * The first thing I thought of was to use a binary search method to check midpoints since the array was already sorted. There were some exceptions that I ran into like numbers that would be inserted first or last in the array. As well as numbers inserted at [1].
+ */
+
+ var searchInsert = function(nums, target) {
+    let start = 0;
+    let end = nums.length - 1;
+    let middle
+
+    if (nums[0] > target) {return 0}
+    if (nums[nums.length - 1] < target) {return nums.length}
+
+    while (start <= end) {
+        middle = Math.floor((start + end) / 2);
+
+        if (nums[middle] === target) {
+            //If equal
+            return middle;
+        } else if (nums[middle] < target) {
+            // Value is greater
+            start = middle + 1;
+            if (start > end) {return start}
+        } else {
+            // Value is less
+            end = middle - 1;
+        }
+    }
+    return middle
+}
