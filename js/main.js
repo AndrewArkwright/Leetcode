@@ -369,3 +369,34 @@ You must write an algorithm with O(log n) runtime complexity.
     }
     return middle
 }
+
+/*
+You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. The digits are ordered from most significant to least significant in left-to-right order. The large integer does not contain any leading 0's.
+
+Increment the large integer by one and return the resulting array of digits.
+*/
+
+/**
+ * @param {number[]} digits
+ * @return {number[]}
+ * [1,2,3] => [1,2,4]
+ * The first thing I thought of was doing a if statement to see if I can just increment the last number and then use a while loop from the end to set all 9's to 0's and adjust the number in front
+ */
+
+ var plusOne = function(digits) {
+    if (digits[digits.length - 1] < 9) {
+        digits[digits.length - 1] += 1
+    }
+    else{
+        let i = digits.length - 1
+        while (digits[i] === 9 && i >= 0) {
+            digits[i] = 0
+            i--
+        }
+        if (digits[0] === 0) { // [9,9] to [1,0,0] and [9] to [1, 0]
+            digits.unshift(1)
+        }
+        else {digits[i]++}
+    }
+    return digits
+}
