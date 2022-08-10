@@ -400,3 +400,29 @@ Increment the large integer by one and return the resulting array of digits.
     }
     return digits
 }
+
+/*
+You are climbing a staircase. It takes n steps to reach the top.
+
+Each time you can either climb 1 or 2 steps. In how many distinct ways can you climb to the top?
+*/
+
+/**
+ * @param {number} n
+ * @return {number}
+ * @example 3 => 3 (1+1+1, 1+2, 2+1)
+ * @Prototype - This is an example of the fibonacci sequence where n = n - 1 + n - 2 so I made code for that
+ */
+
+ var climbStairs = function(n) {
+    let first = 0, second = 1, fib = 0
+
+    let i = 0
+    while (i <= n) {
+        fib = first + second
+        second = first
+        first = fib
+        i++
+    }
+    return fib
+};
