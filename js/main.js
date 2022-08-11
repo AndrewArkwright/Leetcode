@@ -275,7 +275,6 @@ var maxAreaAlpha = function(height) {
         if (height[i] > currentMaxHeight || i === 0) {
             if (height[i] > currentMaxHeight) {currentMaxHeight = height[i]}
             for(let j = 0; i < maxIndex[j]; j++) { //loop through all max values
-                //console.log(i, maxIndex[j])
                 if((maxIndex[j] - i) * Math.min(maxArray[j], height[i]) > temp) {temp = (maxIndex[j] - i) * Math.min(maxArray[j], height[i])}
             }
         }
@@ -426,3 +425,29 @@ Each time you can either climb 1 or 2 steps. In how many distinct ways can you c
     }
     return fib
 };
+
+/*
+    Return the the number in the non empty array that only shows up once
+*/
+
+/**
+ * @param {number[]} nums
+ * @return {number}
+ * @example [4,1,2,1,2] => 4
+ * @Prototyping : Use an object and make a new key for each value in the array, increment the value for the object each time it shows up, and then return the key that only has the value of 1
+ */
+
+ var singleNumber = function(nums) {
+    let table = {}
+    
+    for(let i = 0; i < nums.length; i++) {
+        if (nums[i] in table) { //if key exists, increment
+            table[nums[i]]++
+        }
+        else { //else add key
+            table[nums[i]] = 1
+        }
+    }
+
+    return Object.keys(table).find(key => table[key] === 1)
+}
