@@ -451,3 +451,23 @@ Each time you can either climb 1 or 2 steps. In how many distinct ways can you c
 
     return Object.keys(table).find(key => table[key] === 1)
 }
+
+/**
+ * @param {number[]} nums1
+ * @param {number} m
+ * @param {number[]} nums2
+ * @param {number} n
+ * @return {void} Do not return anything, modify nums1 in-place instead.
+ * @example merge([ 1, 2, 3, 10, 15, 20, 0, 0, 0 ], 6, [ 2, 12, 22], 3) , nums1 = [1, 2, 2, 3, 10, 12, 15, 20, 22]
+ * @prototype I didn't like that there were empty spots in nums1 so I decided to just use a for loop to to insert all of nums2. Would be faster than filtering and then adding nums2. After that, I thought about using a merge sort, but thought the most efficient way would be to use the Array.sort() method. Otherwise I would just remove the 0's and use a nested for loop to insert nums2 into nums1.
+ */
+
+ var merge = function(nums1, m, nums2, n) {
+    
+    let j = 0
+    for (let i = m; i < m + n; i++) {
+        nums1[i] = nums2[j]
+        j++
+    }
+    nums1 = nums1.sort((a, b) => a - b)
+}
