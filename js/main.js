@@ -452,6 +452,8 @@ Each time you can either climb 1 or 2 steps. In how many distinct ways can you c
     return Object.keys(table).find(key => table[key] === 1)
 }
 
+//Problem is to merge two sorted arrays together
+
 /**
  * @param {number[]} nums1
  * @param {number} m
@@ -470,4 +472,30 @@ Each time you can either climb 1 or 2 steps. In how many distinct ways can you c
         j++
     }
     nums1 = nums1.sort((a, b) => a - b)
+}
+
+/*
+Given a non-negative integer x, compute and return the square root of x.
+
+Since the return type is an integer, the decimal digits are truncated, and only the integer part of the result is returned.
+
+Note: You are not allowed to use any built-in exponent function or operator, such as pow(x, 0.5) or x ** 0.5.
+*/
+
+/**
+ * @param {number} x
+ * @return {number}
+ * @example 5 => 2
+ * @Prototype I want to find the largest square that is < x and then subtract the value from x until x is 0 or less while adding together each largest square together to return. Could probably tweek it some to find larger squares faster since 2^31 is the largest number there could be.
+ */
+
+ var mySqrt = function(x) {
+    let answer = 0
+    while (x >= 0) {
+        let temp = 1
+        while (temp * temp < x) {temp++}
+        answer += temp
+        x -= temp * temp
+    }
+    return answer - 1
 }
