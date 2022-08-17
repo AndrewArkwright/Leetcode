@@ -499,3 +499,30 @@ Note: You are not allowed to use any built-in exponent function or operator, suc
     }
     return answer - 1
 }
+
+/**
+ * Make an array that contains an array of each row of Pascal's triangle up until row numRows and return it.
+ * 
+ * @param {number} numRows
+ * @return {number[][]}
+ * @example (5) => [[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
+ * @prototype I decided to just manually return the first two options and then make a loop to add i and i+1 starting from 0 after adding 1 before and then after doing so
+ */
+
+ var generate = function(numRows) {
+    
+    if (numRows === 1) {return [[1]]}
+    if (numRows === 2) {return [[1], [1,1]]}
+    
+    let answerArray = [[1], [1, 1]]
+    let array = [1, 1]
+    while (answerArray.length != numRows) {
+        let tempArray = [1]
+        for(let i = 0; i < answerArray.length - 1; i++) {
+            tempArray.push(answerArray[answerArray.length - 1][i] + answerArray[answerArray.length - 1][i + 1])       
+        }
+        tempArray.push(1)
+        answerArray.push(tempArray)
+    }
+    return answerArray
+}
