@@ -526,3 +526,30 @@ Note: You are not allowed to use any built-in exponent function or operator, suc
     }
     return answerArray
 }
+
+/**
+ * Given an integer rowIndex, return the rowIndexth (0-indexed) row of the Pascal's triangle.
+ * 
+ * @param {number} rowIndex
+ * @return {number[]}
+ * @example 3 => [1, 3, 3, 1]
+ * @prototype I decided to manually do the first two rows because I can use the first row to generate all of the other rows. To generate all of the other rows, I pushed 1 to it and then I looped through the previous row adding i and i+1 and pushing the result to the temp array. I then added 1 and set the new answerArray to the temp array and repeated until we reached the row we needed.
+ */
+
+ var getRow = function(rowIndex) {
+    if (rowIndex === 0) {return [1]}
+    if (rowIndex === 1) {return [1,1]}
+    
+    let answerArray = [1, 1]
+    let row = 1
+    while (row != rowIndex) {
+        let tempArray = [1]
+        for(let i = 0; i < answerArray.length - 1; i++) {
+            tempArray.push(answerArray[i] + answerArray[i + 1])       
+        }
+        tempArray.push(1)
+        answerArray = tempArray
+        row++
+    }
+    return answerArray
+}
