@@ -553,3 +553,31 @@ Note: You are not allowed to use any built-in exponent function or operator, suc
     }
     return answerArray
 }
+
+/**
+ * @description You are given a 0-indexed integer array nums, where nums[i] is a digit between 0 and 9 (inclusive).
+
+The triangular sum of nums is the value of the only element present in nums after the following process terminates:
+
+Let nums comprise of n elements. If n == 1, end the process. Otherwise, create a new 0-indexed integer array newNums of length n - 1.
+For each index i, where 0 <= i < n - 1, assign the value of newNums[i] as (nums[i] + nums[i+1]) % 10, where % denotes modulo operator.
+Replace the array nums with newNums.
+Repeat the entire process starting from step 1.
+Return the triangular sum of nums.
+ * 
+ * @param {number[]} nums
+ * @return {number}
+ * @example [1,2,3,4,5] => 8
+ * @prototype The description gave a lot of info, which I used for my prototype. I used a while loop since we have to keep making the the array smaller until one value was left and returned that value. I used a temp array to push all of the math I did with the numbers and then I set nums equal to that temp array.
+ */
+
+var triangularSum = function(nums) {
+    while (nums.length != 1) {
+        let tempArray = []
+        for(let i = 0; i < nums.length - 1; i++) {
+            tempArray.push((nums[i] + nums[i+1]) % 10)
+        }
+        nums = tempArray
+    }
+    return nums[0]
+}
