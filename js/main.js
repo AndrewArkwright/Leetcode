@@ -615,3 +615,62 @@ var triangularSum = function(nums) {
     }
     return nums[0]
 }
+
+/**
+ * @description You have a list arr of all integers in the range [1, n] sorted in a strictly increasing order. Apply the following algorithm on arr:
+ * Starting from left to right, remove the first number and every other number afterward until you reach the end of the list.
+ * Repeat the previous step again, but this time from right to left, remove the rightmost number and every other number from the remaining numbers.
+ * Keep repeating the steps again, alternating left to right and right to left, until a single number remains.
+ * Given the integer n, return the last number that remains in arr.
+ * 
+ * @param {number} n
+ * @return {number}
+ * @example [1,2,3,4,5,6,7,8,9] => 6
+ * @prototype So I noticed that it wants us to remove all indexes that are % 2 === 0 and then ! % 2 === 0. If you reverse the array the second time or after you filter, then you are removing items that are % 2 === 0 again. Just loop that until n.length === 1.
+ * 
+ * @examples The first two answers do not work in leetcode due to the large array it would create, but functions correctly. Working on the final version that does not include an array.
+ */
+
+ var lastRemaining = function(n) {
+    if (n === 1) {return n}   
+    let nArray = []
+
+    for (let i = 1; i <= n; i++) {
+        if (i % 2 === 0) {nArray.push(i)}
+    }
+
+    let flag = true
+
+    while (nArray.length != 1) {
+
+        if (flag) {
+            nArray.pop()
+            if (nArray.length === 1) {break}
+            if (nArray.length % 2 === 0) {nArray = nArray.filter((value, index) => index % 2 != 0)}
+            else {nArray = nArray.filter((value, index) => index % 2 === 0)}
+            flag = false
+        }
+        else {
+            nArray.shift()
+            if (nArray.length === 1) {break}
+            nArray = nArray.filter((value, index) => index % 2 === 0)
+            flag = true
+        }
+    }
+
+    return nArray[0]
+}
+
+var lastRemaining = function(n) {   
+    let nArray = []
+
+    for (let i = 1; i <= n; i++) {
+        if (i % 2 === 0) {nArray.push(i)}
+    }
+
+    while (nArray.length != 1) {
+        nArray = nArray.reverse()
+        nArray = nArray.filter((value, index) => index % 2 != 0)
+    }
+    return nArray[0]
+}
