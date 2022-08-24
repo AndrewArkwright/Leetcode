@@ -674,3 +674,27 @@ var lastRemaining = function(n) {
     }
     return nArray[0]
 }
+
+/**
+ * @param {number} n
+ * @return {number}
+ * @example [1,2,3,4,5,6,7,8,9] => 6
+ * @prototype After figuring out that leetcode basically will not let you use an array for this problem, I looked for a pattern. Some of my previous code taught me some info as well like the amount of remaining numbers being odd or even does make a difference only when popping off the right side and filtering. Look at my commented code for further info.
+ */
+
+ function lastRemaining(n) {
+	//What we use to determine if we are on the left side or right side
+	let pass = 1
+
+	//First number on the left side that we keep track of to return
+	let first = 1
+
+    while (n > 1) {
+        if (n % 2 === 1 || pass % 2 === 1) { //if next interation is odd or if we are starting on left side
+            first += Math.pow(2, pass - 1) //each time you interate through it, the number between each items is a 2 to some power
+        }
+        n = Math.floor(n / 2) //if we used an array and did it manually, this is the amount of numbers left in the array after each iteration
+        pass++ //increment each iteration
+    }
+    return first
+}
