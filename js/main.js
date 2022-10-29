@@ -691,7 +691,7 @@ var lastRemaining = function(n) {
 
     while (n > 1) {
         if (n % 2 === 1 || pass % 2 === 1) { //if next interation is odd or if we are starting on left side
-            first += Math.pow(2, pass - 1) //each time you interate through it, the number between each items is a 2 to some power
+            first += Math.pow(2, pass - 1) //each time you interate through it, the number between each items is 2 to some power
         }
         n = Math.floor(n / 2) //if we used an array and did it manually, this is the amount of numbers left in the array after each iteration
         pass++ //increment each iteration
