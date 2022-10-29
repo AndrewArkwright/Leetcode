@@ -730,3 +730,38 @@ var lastRemaining = function(n) {
     }
       return answer.next
   }
+
+  /**
+   * @Description - The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+P   A   H   N
+A P L S I I G
+Y   I   R
+And then read line by line: "PAHNAPLSIIGYIR" and that's what you will return when given the a random string of characters and another number for the amount of rows.
+   * @Parameters - We are given two parameters. One is a string of characters that will range from 1 to 1000 characters. The other is a number that will range 1 to 1000 as well. It does not state whether there may be more rows than characters, but that should not really affect the final result with how I do things.
+   * @Return - We return a string following the rules above
+   * @Example - ("PAYPALISHIRING", 4) => "PINALSIGYAHRPI"
+   * @Pseudo - There were a couple of ways I could think of doing it. One is to make an array for each row and push the appropriate values into each and combine. The other is searching the array multiple times and grab the values for each row and then combining them all. First one has a high space complexity while the second has a high time complexity. I chose the first option because it was easy to implement and would be faster.
+   */
+
+  var convert = function(s, numRows) {
+    let answer = []
+    s = s.split("")
+    for (let i = 0; i < numRows; i++) {
+      answer[i] = [] //make a sub array for each row
+    }
+
+    let temp = 0 //What I manipulate and use to check what row we are on
+
+    while (s.length != 0) {
+      answer[temp].push(s.shift())
+      if (temp + 1 === numRows) {
+        for (let i = temp - 1; i > 0; i--) { //This is so we zig zag each row and we exclude the first and last value since the other loop handles those
+          answer[i].push(s.shift())
+        }
+        temp = -1 //-1 because we increment right after and it would never touch answer[0] again otherwise
+      }
+      temp++
+    }
+    
+    return answer.map(val => val.join("")).join("")
+};
