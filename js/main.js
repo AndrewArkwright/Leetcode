@@ -765,3 +765,93 @@ And then read line by line: "PAHNAPLSIIGYIR" and that's what you will return whe
     
     return answer.map(val => val.join("")).join("")
 };
+
+/**
+ * @Description - Given a string, return the largest substring. If there is more than one substring that is of the largest length, return any of the substrings of the largest length will be fine
+ * @Parameters - We are given a string that is of length 1 to 1000
+ * @Return - We return a string that is a substring of the given string.
+ * @Example - "abbacdc" => "abba", "YYYYY" => "YYYYY", "abcd" => "a" || "b" || "c" || "d"
+ * @Pesuedo - The first function is basically a brute force method that checks for palindromes at each character without using precalculated inforamtion. The second function searches for strings of increasing length until the length is greater than the given string. The second function uses a matrix and only checks about half of the items in the matrix and it also only checks indexes if a string of the current length + starting index is <= the length of the string. One way I could improve all of these algorithms is actually just check for only one item of the length and if found, we skip to the next length since it doesn't matter which substring of the max length we return.
+ */
+
+var longestPalindrome = function(s) {
+    s = s.split("")
+    let answer = []
+    for (let i = 0; i < s.length; i++) {
+        if (s[i - 1] === s[i + 1]) { //if a(b)a
+            let tempArr = []
+            let indexInc = 1 //values away from i
+            tempArr.push(s[i])
+            while (s[i + indexInc] === s[i - indexInc]) {
+                tempArr.push(s[i + indexInc])
+                tempArr.unshift(s[i + indexInc])
+                indexInc++
+            }
+            if (tempArr.length > answer.length) {answer = tempArr}
+        }
+        if (s[i] === s[i + 1]) { //if (a)a
+            let tempArr = []
+            let indexInc = 1 //values away from i
+            tempArr.push(s[i])
+            tempArr.push(s[i])
+            while (s[i + indexInc + 1] === s[i - indexInc] && s[i - indexInc] != undefined) {
+                tempArr.push(s[i - indexInc])
+                tempArr.unshift(s[i - indexInc])
+                indexInc++
+            }
+            if (tempArr.length > answer.length) {answer = tempArr}
+        }
+    }
+    return answer.join("")
+}
+
+var longestPalindrome = function(s) {
+    // get length of input string
+    let n = s.length
+  
+    let table = new Array(n)
+    for(let i = 0; i < n; i++) {table[i] = new Array(n)} //Make an empty table/matrix
+  
+    let maxLength = 1 //Keep track of length of string to return
+    let start = 0 //Keep track of the start of the longest palindrome
+    
+    //Set length 1 items on table to true
+    for (let i = 0; i < n; i++) {table[i][i] = true} //We only really care about checking items above to the top right of this since we would be duplicating checks otherwise
+  
+    //Check for length two substrings
+    for (let i = 0; i < n - 1; i++) {
+      if (s[i] == s[i + 1]) { //only half of the table is used. We could check the row as well, but we don't
+        table[i][i + 1] = true
+        start = i
+        maxLength = 2
+      }
+    }
+  
+    // Check for lengths greater than 2.
+    // k is length of substring so we start with 3 since everything with 2 is checked already. We check by length until the length of the substring would be greater than the actually length of the string.
+    for (let k = 3; k <= n; k++) {
+      
+      // Fix the starting index
+      for (let i = 0; i < n - k + 1; i++) {
+                 
+        // Get the ending index j of substring from starting index i and length k
+        let j = i + k - 1
+      
+        // checking for sub-string from ith index to jth index if already planindrome (s.charAt(i+1) to s.charAt(j-1))
+        if (table[i + 1][j - 1] && s[i] == s[j]) {
+          table[i][j] = true
+          
+          if (k > maxLength) {
+            start = i
+            maxLength = k
+          }
+        
+        }
+      }
+    }
+    
+    console.table(table)
+    console.log(table)
+  
+    return s.substring(start, start + maxLength) //will return the first character if there is nothing longer than 1 character
+  }
