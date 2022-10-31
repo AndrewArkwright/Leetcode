@@ -855,3 +855,53 @@ var longestPalindrome = function(s) {
   
     return s.substring(start, start + maxLength) //will return the first character if there is nothing longer than 1 character
   }
+
+  /**
+   * @Description - We are given an array and must return every matching pair of three numbers that sum to 0. The three numbers must be distinct as well
+   * @Parameter - We are given an array of numbers. The array will have at least three numbers and up to 3000. The values of the numbers range from 10^-5 and 10^5
+   * @Return - We return an array of nested array such that each nested array's sum === 0. Duplicates are not allowed. [-1 0 1] works, but cannot have [-1, 1, 0] as well. Order of the values in the array do not matter
+   * @Example - [-1,0,1,2,-1,-4] => [[-1,-1,2],[-1,0,1]]
+   * @Pseudo - The first function is a brute force I made of O(n^3) that uses a loop for each value to check. I could make that more efficent my sorting the array first and that would cut out some of my problems. The second function is O(n^2). I used a cache in both to make sure no duplicates will exist. The main efficiency with the second one is that I combine the first two loops together by making the second loop be i + 1 and the third loop starts at the end. Then you just increment or decrement depending on if the sum === 0. I am only able to make it this fast because I sorted the array first as well.
+   */
+
+  var threeSum = function(nums) {
+    let answer = []
+    let cache = {}
+  
+    for(let i = 0; i < nums.length; i++) {
+      for(let j = 1; j < nums.length; j++) {
+        for(let k = 2; k < nums.length; k++) {
+          if (nums[i] + nums[j] + nums[k] === 0 && i < j && i < k && j < k) {
+            let tempArr = [nums[i], nums[j], nums[k]].sort((a, b) => a - b)
+            if (tempArr in cache === false) {
+              answer.push(tempArr)
+              cache[tempArr] = true
+            }
+          }
+        }
+      }
+    }
+    return answer
+  }
+
+  var threeSum = function(nums) {
+    nums = nums.sort((a, b) => a - b)
+    let cache = {}
+    let answer = []
+    
+    for (let i = 0; i < nums.length - 2; i++) {
+        let l = i + 1
+        let r = nums.length - 1
+        
+        while (l < r) {
+            if (nums[i] + nums[l] + nums[r] === 0 && [nums[i], nums[l], nums[r]] in cache === false) {
+                answer.push([nums[i], nums[l], nums[r]])
+                cache[[nums[i], nums[l], nums[r]]] = true
+                l++
+            }
+            else if (nums[i] + nums[l] + nums[r] < 0) {l++} //if less than 0, nothing to the left will ever be able to = 0 so we increase
+            else {r--} //if too high, we lower right side until we get a match
+        }
+    }
+    return answer
+}

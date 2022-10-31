@@ -11,4 +11,4 @@ The JavaScript file in this repository contains all of my Leetcode functions tha
 I have a full website attached that has the HTML, CSS, and JavaScript I use for my Leetcode. In the JavaScript file, each problem is in a comment block and some comment blocks have some extra information noted in it about extra solutions or other related information regareding the question. After the comment block, is the code I submitted. Some have more than one solution that I made as well.
 
 ## Lessons Learned:
-These are more fun than the Codewars problems because they are more challenging and expand on the data structures and methods that I use. However, I had to spend quite a bit mroe time researching before tackling some problems.
+These are more fun than the Codewars problems because they are more challenging and expand on the data structures and methods that I use. However, I had to spend quite a bit more time researching before tackling some problems.
