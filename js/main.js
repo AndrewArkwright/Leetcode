@@ -925,3 +925,25 @@ var containsDuplicate = function(nums) {
   
     return false
 }
+
+/**
+ * @Description - Given an array of numbers of size n, return the majority number that shows up in the array (more than n/2 times).
+ * @Parameters - We are given an array and can assume there is at least one number due to the majority element always existing.
+ * @Return - We return a number that is the majority number of the given array.
+ * @Example - [2,2,1,1,1,2,2] => 2
+ * @Pseudo - I put all the numbers in an object to keep track of the amount of times they occur.
+ */
+
+var majorityElement = function(nums) {
+    let half = nums.length/2
+    let map = {}
+  
+    for (let i = 0; i < nums.length; i++) {
+      if (map[nums[i]]) {map[nums[i]]++}
+      else {map[nums[i]] = 1}
+    }
+  
+    for (const i in map) {
+      if (map[i] >= half) {return i}
+    }
+}
