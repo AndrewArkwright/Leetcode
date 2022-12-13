@@ -905,3 +905,23 @@ var longestPalindrome = function(s) {
     }
     return answer
 }
+
+/**
+ * @Description - We are given an array of numbers and must return true if there is a duplicate number or not.
+ * @Parameter - We are given an array of numbers that will have at least one number in it and up to 10^5 numbers. The numbers range from +- 10^9.
+ * @Return - We return true or false depending on if the array has a duplicate number in it.
+ * @Example - [1, 2, 3, 4] => false, [1, 2, 3, 1] => true.
+ * @Pseudo - I chose to use an object to store each number and I check each number as well to see if it is already in the obj.
+ */
+
+var containsDuplicate = function(nums) {
+    let obj = {}
+  
+    for (let i = 0; i < nums.length; i++) {
+      if (obj[nums[i]]) {return true}
+      
+      obj[nums[i]] = true
+    }
+  
+    return false
+}
